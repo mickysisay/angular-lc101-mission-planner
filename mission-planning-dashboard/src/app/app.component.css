@@ -1,4 +1,12 @@
 .box {
     display:flex;
     padding: 10px;
+    
+}
+.border {
+    margin-left: 20px;
+   padding-left:10px;
+   padding-right:10px;
+   border : 4px solid gold;
+   border-radius : 5px;
 }
