@@ -24,8 +24,17 @@ export class CrewComponent implements OnInit {
     }
   }
   add(newCrew:string,isFirst:boolean){
+    let itExists :boolean = false;
+    for(let i:number=0;i<this.crew.length;i++){
+        if(this.crew[i].name === newCrew){
+          itExists = true;
+          break;
+        }
+    }
+    if(!itExists){
     this.crew.push({"name": newCrew , "firstMission":isFirst});
     this.editingName.push(true);
+    }
   }
   remove(obje:object){
     this.crew.splice(this.crew.indexOf(obje),1);
@@ -46,6 +55,17 @@ export class CrewComponent implements OnInit {
   
  }
   changeName(nameobj: any ,newName:string){
+    let itExists :boolean = false;
+    for(let i:number=0;i<this.crew.length;i++){
+        if(this.crew[i].name === newName){
+          itExists = true;
+          break;
+        }
+    }
+    if(!itExists){
   this.crew[this.crew.indexOf(nameobj)].name = newName;
+    }else{
+      this.actuallyEdit(nameobj);
+    }
  }
 }
