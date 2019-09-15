@@ -30,6 +30,9 @@ export class EquipmentComponent implements OnInit {
    addToEquipment(obj:any){
     let isDone = false;
     if(this.maximumAllowedMass >= this.cargoMass+obj.mass){ 
+      if(this.cargoHold.includes(obj)){
+        this.isOver[this.equipmentItems.indexOf(obj)] = true;
+      }
       this.cargoHold.push(obj);
        this.cargoMass+= obj.mass;
       }
@@ -37,7 +40,9 @@ export class EquipmentComponent implements OnInit {
        isDone =true;
       } 
     for(let i:number=0;i<this.equipmentItems.length;i++){
+      if(!this.isOver[i]){
       this.isOver[i]= !(this.maximumAllowedMass >=this.cargoMass+ this.equipmentItems[i].mass);
+      }
       if(isDone){
         this.isOver[i] = true;
       }
@@ -54,5 +59,15 @@ export class EquipmentComponent implements OnInit {
      for(let i:number=0;i<this.equipmentItems.length;i++){
        this.isOver[i]=false;
      }
+   }
+   remove(obj:any){
+     let num:number = this.cargoHold.indexOf(obj);
+     this.cargoHold.splice(num,1);
+     this.cargoMass-=obj.mass;
+     for(let i:number=0;i<this.equipmentItems.length;i++){
+      
+      this.isOver[i]= !(this.maximumAllowedMass >=this.cargoMass+ this.equipmentItems[i].mass);
+      }
+     
    }
 }
