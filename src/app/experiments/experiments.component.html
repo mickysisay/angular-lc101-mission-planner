@@ -1,6 +1,10 @@
 <h3>Experiments</h3>
 <ul>
-  <li>Mars soil sample</li>
-  <li>Plant growth in habitat</li>
-  <li>Human bone density</li>
+  <li *ngFor ='let experiment of experiments'><span *ngIf ='selected !== experiment else inputExperiment' (click) = "edit(experiment)">{{experiment}}</span></li>
+  <ng-template #inputExperiment>
+    <input #edited (keyup.enter) = "change(selected , edited.value)" value = "{{selected}}"/><button (click) = "change(selected , edited.value)">save</button>
+    <p style ='color:red' *ngIf='showWarning'>New name for experiment {{selected}} is either empty or it exists</p>
+  </ng-template>
 </ul>
+<input #newExperiment (keyup.enter)='add(newExperiment.value)' placeholder="enter experiment" /><button (click)='add(newExperiment.value)' >Add experiment</button>
+
