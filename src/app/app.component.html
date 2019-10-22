@@ -1,6 +1,12 @@
 <app-header></app-header>
+<div  class='left-side'>
+<p (click)='changeShowStatus()' style='text-align: center'>{{showing}} candidates</p>
+</div>
+<app-crew class='wat' [class.displaying]='isShowing'>
+</app-crew>
+
 <div class="box">
-  <app-crew></app-crew>
+ 
   <app-equipment></app-equipment>
   <app-experiments></app-experiments>
 </div>

@@ -22,6 +22,7 @@ export class EquipmentComponent implements OnInit {
    maximumAllowedMass: number = 2000;
    maxItems: number = 10;
    isOver: boolean[]=[false,false,false,false,false,false,false,false,false];
+   reason : string[] = ["","","","","","","","",""];
    constructor() { }
 
    ngOnInit() { }
@@ -31,6 +32,7 @@ export class EquipmentComponent implements OnInit {
     let isDone = false;
     if(this.maximumAllowedMass >= this.cargoMass+obj.mass){ 
       if(this.cargoHold.includes(obj)){
+        this.reason[this.equipmentItems.indexOf(obj)] = "duplicate";
         this.isOver[this.equipmentItems.indexOf(obj)] = true;
       }
       this.cargoHold.push(obj);
@@ -42,9 +44,11 @@ export class EquipmentComponent implements OnInit {
     for(let i:number=0;i<this.equipmentItems.length;i++){
       if(!this.isOver[i]){
       this.isOver[i]= !(this.maximumAllowedMass >=this.cargoMass+ this.equipmentItems[i].mass);
+      this.reason[i] = !(this.maximumAllowedMass >=this.cargoMass+ this.equipmentItems[i].mass) ?  "maxmass": "" ;
       }
       if(isDone){
         this.isOver[i] = true;
+        this.reason[i] = "duplicate";
       }
     }
     
@@ -64,10 +68,17 @@ export class EquipmentComponent implements OnInit {
      let num:number = this.cargoHold.indexOf(obj);
      this.cargoHold.splice(num,1);
      this.cargoMass-=obj.mass;
+     if(this.isOver[this.equipmentItems.indexOf(obj)]===true){
+       this.reason[this.equipmentItems.indexOf(obj)]="";
+       this.isOver[this.equipmentItems.indexOf(obj)]=false;
+     }
      for(let i:number=0;i<this.equipmentItems.length;i++){
-      
+        if(this.reason[i] === "maxmass"){
       this.isOver[i]= !(this.maximumAllowedMass >=this.cargoMass+ this.equipmentItems[i].mass);
-      }
+      this.reason[i] = !(this.maximumAllowedMass >=this.cargoMass+ this.equipmentItems[i].mass) ?  "maxmass": "" ;    
+     }
+     
+    }
      
    }
 }

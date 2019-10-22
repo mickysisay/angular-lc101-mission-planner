@@ -3,3 +3,21 @@
     padding: 10px;
     justify-content: space-evenly;
 }
+.left-side{
+    position :fixed;
+    top:0;
+    
+    background-color:gold;
+    border-radius:15px;
+}
+.displaying{
+   
+    display:none;
+}
+.wat{
+    position:fixed;
+    top:60px;
+    left:0;
+    background-color:gold;
+    border-radius:15px;
+}
